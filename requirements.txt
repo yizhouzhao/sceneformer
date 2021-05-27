@@ -6,3 +6,8 @@ tensorboard
 tqdm
 plyfile
 pytest
+num2words
+nltk
+torchtext
+transforms3d
+warmup-scheduler

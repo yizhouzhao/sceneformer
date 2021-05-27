@@ -1,0 +1,83 @@
+data:
+  data_path: /home/ubuntu/research/suncg/bedroom
+  list_path: None
+  out_path: tests/data/scene_outputs
+model:
+  cat:
+    pad_token: 50
+    shape_cond: true
+    shuffle: false
+    start_token: 52
+    stop_token: 51
+    text_cond: false
+  cat_num: 28
+  coor:
+    pad_token: 201
+    shape_cond: true
+    start_token: 203
+    stop_token: 202
+    text_cond: false
+  dim:
+    pad_token: 81
+    shape_cond: true
+    start_token: 83
+    stop_token: 82
+  dim_fwd: 256
+  dropout: 0.3
+  emb_dim: 256
+  max_obj_num: 100
+  max_seq_len: 40
+  num_blocks: 8
+  num_heads: 8
+  orient:
+    pad_token: 361
+    shape_cond: true
+    start_token: 363
+    stop_token: 362
+    text_cond: false
+  relation:
+    pad_token: 2
+    start_token: 4
+    stop_token: 3
+test:
+  log_dir: lightning_logs/version_20/out/
+  model_file: null
+  num_samples: 2
+  probabilistic: false
+text_model:
+  dropout: 0.3
+  max_seq_len: 100
+  num_blocks: 6
+  num_heads: 16
+  pad_token: 0
+  voc: 120
+train:
+  aug:
+    jitter_list:
+    - 0.0
+    - 0.05
+    - 0.1
+    - 0.15
+    - 0.2
+    - 0.25
+    - 0.3
+    rotation_list:
+    - 0
+    - 30
+    - 60
+    - 90
+    - 120
+    - 150
+    - 180
+    - 210
+    - 240
+    - 270
+  batch_size: 64
+  epochs: 2000
+  l2: 0.001
+  lr: 0.0003
+  lr_restart: 30000
+  resume: null
+  total_len: 1200
+  train_len: 1000
+  warmup: 5000

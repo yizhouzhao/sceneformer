@@ -33,7 +33,7 @@ class SUNCG_Dataset(Dataset):
     def __len__(self):
         return len(self.files)
 
-    def __getitem__(self, ndx):
+    def __getitem__(self, ndx, train_type = "cat"):
         # ndx=1059 ,
         # ndx = 1089
         # ndx = 1096
@@ -43,8 +43,8 @@ class SUNCG_Dataset(Dataset):
             room_pkl = pickle.load(f)
         # get the floor, wall window door and the room object from the pickle contents
 
-        (floor, wall, window, door, nodes), roomobj = room_pkl
-        # (floor, wall,nodes), roomobj = room_pkl
+        #(floor, wall, window, door, nodes), roomobj = room_pkl
+        (floor, wall,nodes), roomobj = room_pkl
 
         # make a copy of the object, dont change the original
         # TODO: make a copy in the transform, not here
@@ -78,6 +78,12 @@ class SUNCG_Dataset(Dataset):
         sample['file_path'] = path
         sample['pickle_file'] = f'{ndx}.pkl'
         sample['wall'] = wall
+
+        if train_type == "cat":
+            return sample["cat_seq"], sample["x_loc_seq"], sample["y_loc_seq"], \
+                sample["z_loc_seq"], sample["orient_seq"], sample['floor']
+
+
         return sample
 
 

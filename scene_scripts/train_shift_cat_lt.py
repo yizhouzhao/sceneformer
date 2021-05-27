@@ -4,8 +4,8 @@ from torchvision.transforms import Compose
 import torch
 from torch.utils.data import DataLoader, Subset
 
-from pytorch_lightning.callbacks import ModelCheckpoint
-from pytorch_lightning import Trainer, seed_everything
+#from pytorch_lightning.callbacks import ModelCheckpoint
+# from pytorch_lightning import Trainer, seed_everything
 
 from transforms.scene import (
     SeqToTensor,
@@ -21,7 +21,7 @@ from datasets.suncg_shift_seperate_dataset_deepsynth import SUNCG_Dataset
 from separate_models.scene_shift_cat import scene_transformer
 from utils.config import read_config
 
-seed_everything(1)
+# seed_everything(1)
 
 
 def log_metrics(self, metrics, step=None):
@@ -41,6 +41,7 @@ def monkeypatch_tensorboardlogger(logger):
 
 
 def run_training(cfg):
+    cfg['data']['data_path'] = "/home/ubuntu/research/suncg/bedroom"
     transforms = [Augment_rotation(cfg['train']['aug']['rotation_list']), Augment_jitterring(cfg['train']['aug']['jitter_list']), Get_cat_shift_info(cfg)]
 
     if cfg["model"]["cat"]["text_cond"]:
@@ -69,15 +70,17 @@ def run_training(cfg):
     )
 
     model = scene_transformer(cfg)
-    checkpoint_callback = ModelCheckpoint(save_last=True, save_top_k=5)
+    # checkpoint_callback = ModelCheckpoint(save_last=True, save_top_k=5)
 
-    trainer = Trainer(gpus=1,
-                      gradient_clip_val=1.0,
-                      # fast_dev_run=True,
-                      max_epochs=cfg['train']['epochs'],
-                      checkpoint_callback=checkpoint_callback,
-                      resume_from_checkpoint=cfg['train']['resume']
-                      )
+    print("Batch")
+    print(next(iter(train_loader)))
+    # trainer = Trainer(gpus=1,
+    #                   gradient_clip_val=1.0,
+    #                   # fast_dev_run=True,
+    #                   max_epochs=cfg['train']['epochs'],
+    #                   checkpoint_callback=None,
+    #                   resume_from_checkpoint=cfg['train']['resume']
+    #                   )
 
 
     monkeypatch_tensorboardlogger(trainer.logger)
