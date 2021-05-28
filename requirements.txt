@@ -1,7 +1,7 @@
-torch==1.4.0
-torchvision==0.5.0
+#torch==1.4.0
+#torchvision==0.5.0
 pyyaml
-pytorch-lightning==1.1
+#pytorch-lightning==1.1
 tensorboard
 tqdm
 plyfile
@@ -11,3 +11,4 @@ nltk
 torchtext
 transforms3d
 warmup-scheduler
+trimesh

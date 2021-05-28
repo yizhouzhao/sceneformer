@@ -1,6 +1,6 @@
 import argparse
 from torchvision.transforms import Compose
-from pytorch_lightning import Trainer, seed_everything
+#from pytorch_lightning import Trainer, seed_everything
 import torch
 from torch.utils.data import DataLoader, Subset
 from transforms.scene import (
@@ -15,10 +15,10 @@ from transforms.scene import (
 )
 from datasets.suncg_shift_seperate_dataset_deepsynth import SUNCG_Dataset
 from separate_models.scene_shift_loc_col import scene_transformer
-from pytorch_lightning.callbacks import ModelCheckpoint, EarlyStopping
+#from pytorch_lightning.callbacks import ModelCheckpoint, EarlyStopping
 from utils.config import read_config
 
-seed_everything(1)
+#seed_everything(1)
 
 
 def log_metrics(self, metrics, step=None):

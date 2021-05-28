@@ -6,8 +6,8 @@ from torch.distributions.categorical import Categorical
 from torch.optim.lr_scheduler import CosineAnnealingLR, CosineAnnealingWarmRestarts
 from warmup_scheduler import GradualWarmupScheduler
 
-from pytorch_lightning.core.lightning import LightningModule
-import pytorch_lightning as pl
+#from pytorch_lightning.core.lightning import LightningModule
+#import pytorch_lightning as pl
 
 import numpy as np
 
@@ -39,12 +39,12 @@ def sample_top_p(logits, top_p=0.6, filter_value=-float("Inf")):
     return sampled
 
 
-class scene_transformer(LightningModule):
+class scene_transformer(nn.Module):
     def __init__(self, cfg):
 
         super(scene_transformer, self).__init__()
-        self.hparams = cfg
-        self.save_hyperparameters(cfg)
+        #self.hparams = cfg
+        #self.save_hyperparameters(cfg)
         self.cfg = cfg
 
         self.emb_dim = cfg["model"]["emb_dim"]

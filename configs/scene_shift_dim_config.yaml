@@ -31,18 +31,22 @@ model:
     start_token: 83
     stop_token: 82
     pad_token: 81
+    shape_cond: True
 
 
-  max_seq_len: 100
-  max_obj_num: 100
+  max_seq_len: 80
+  max_obj_num: 80
   cat_num: 28
-  emb_dim: 256
-  dim_fwd: 256
-  num_heads: 8
+  emb_dim: 128
+  dim_fwd: 128
+  num_heads: 4
   num_blocks: 8
   dropout: 0.3
 
 train:
+  aug:
+    jitter_list: [0.,  0.05,  0.1,  0.15,  0.2, 0.25, 0.3]
+    rotation_list: [0 , 30, 60,  90,120,150,   180,210, 240,  270]
   batch_size: 128
   epochs: 2000
   lr: 0.0003

@@ -688,7 +688,9 @@ class Get_dim_shift_info(object):
         orient_seq = np.array([])
         dim_seq = np.array([])
         modelids = []
+        # print("objects_sorted", len(objects_sorted))
         for obj in objects_sorted:
+            # print("len(dim_seq)", len(dim_seq))
             cat = self.get_final_category(obj.modelId)
 
             cat_idx = np.where(np.array(list(self.cat_freq.keys())) == cat)[0]
@@ -704,13 +706,16 @@ class Get_dim_shift_info(object):
             orient = r.as_euler('yzx', degrees=True)[0]
 
             modelId = obj.modelId
-            dim = copy.deepcopy(self.model_dims[modelId][:3])
+            dim = np.array(copy.deepcopy(self.model_dims[modelId][:3]))
 
+            # print("len(dim)", len(dim))
 
             # scale
             loc, orient, dim = self.scale(loc=loc, orient=orient, dim=dim)
 
             x, y, z = loc[0], loc[1], loc[2]
+
+            # print("len(dim)", len(dim))
 
             if self.window_door_first == True:
                 if cat == 'window' or cat == 'door':
@@ -752,6 +757,9 @@ class Get_dim_shift_info(object):
         sample['orient_seq'] = orient_seq
         sample['modelids'] = modelids
         sample['dim_seq'] = dim_seq
+
+        # print(len(sample['dim_seq']))
+
         return sample
 
     def scale(self, loc, orient, dim):

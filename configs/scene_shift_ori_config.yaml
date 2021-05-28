@@ -39,6 +39,9 @@ model:
   dropout: 0.3
 
 train:
+  aug:
+    jitter_list: [0.,  0.05,  0.1,  0.15,  0.2, 0.25, 0.3]
+    rotation_list: [0 , 30, 60,  90,120,150,   180,210, 240,  270]
   batch_size: 32
   epochs: 2000
   lr: 0.0003

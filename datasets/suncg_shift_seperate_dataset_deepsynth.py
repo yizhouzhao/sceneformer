@@ -30,10 +30,12 @@ class SUNCG_Dataset(Dataset):
         self.files = list(filter(lambda s: s.endswith('.pkl') and s.split('.')[0].isdigit(), all_files))
         self.transform = transform
 
+        self.train_type = "cat"
+
     def __len__(self):
         return len(self.files)
 
-    def __getitem__(self, ndx, train_type = "cat"):
+    def __getitem__(self, ndx):
         # ndx=1059 ,
         # ndx = 1089
         # ndx = 1096
@@ -79,10 +81,14 @@ class SUNCG_Dataset(Dataset):
         sample['pickle_file'] = f'{ndx}.pkl'
         sample['wall'] = wall
 
-        if train_type == "cat":
+        if self.train_type in ["cat", "ori"]:
             return sample["cat_seq"], sample["x_loc_seq"], sample["y_loc_seq"], \
                 sample["z_loc_seq"], sample["orient_seq"], sample['floor']
-
+        elif self.train_type == "loc":
+            return sample["cat_seq"], sample["loc_seq"], sample["orient_seq"], sample["curr_cat_seq"], sample["floor"]
+        elif self.train_type == "dim":
+            return sample["cat_seq"], sample["x_loc_seq"], sample["y_loc_seq"], \
+                sample["z_loc_seq"], sample["orient_seq"], sample['dim_seq'], sample['floor']
 
         return sample
 

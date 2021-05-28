@@ -28,7 +28,7 @@ from datasets.suncg_shift_seperate_dataset_deepsynth import SUNCG_Dataset
 import logging
 from data.house import Room, Node
 from data.top_down import TopDownView
-from data.dataset import toimage
+from PIL import Image
 from data.rendered import RenderedScene
 
 
@@ -721,11 +721,13 @@ for out_scene_ndx in tqdm(range(400,1000)):
 
 
     floor_img = sample['floor'].squeeze(0).numpy() * 0.711
-    floor_rgb = toimage(floor_img, cmin=0, cmax=1)
+    floor_rgb = Image.fromarray(floor_img, "RGB") 
+    #toimage(floor_img, cmin=0, cmax=1)
     floor_out_path = osp.join(IMG_OUT_DIR, 'preds',f"{out_scene_ndx}_floor.jpg")
 
     img += sample['floor'].squeeze(0).numpy()*0.1209 + sample['wall'].numpy()*0.711
-    img_rgb = toimage(img, cmin=0, cmax=1)
+    img_rgb = Image.fromarray(floor_img, "RGB") 
+    #img_rgb = toimage(img, cmin=0, cmax=1)
     img_out_path = osp.join(IMG_OUT_DIR, 'preds',f"{out_scene_ndx}.jpg")
 
     # if using old model, read the windows and doors
